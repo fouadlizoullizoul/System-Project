@@ -13,23 +13,5 @@
     <?php
         include('pages/navbar.php');
     ?>
-    <!-- Hero section with background image and overlay text -->
-    <?php
-        include('pages/hero.php');
-    ?>
-    <!-- Teachers Section -->
-    <?php
-        include('pages/TechersSection.php');
-    ?>
-    <!-- Courses Section -->
-    <?php
-        include('pages/CoursesSection.php');
-    ?>
-    <!-- Form Section -->
-    <?php
-        include('pages/Form.php');
-    ?>
-    <!-- Footer Section -->
-    <?php include 'pages/Footer.php'; ?>
 </body>
 </html>

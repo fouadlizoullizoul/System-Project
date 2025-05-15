@@ -14,8 +14,10 @@ if($_SESSION['usertype'] == "admin") {
     <!-- Add Tailwind CSS via CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="../styles/style.css">
+    <!-- Add Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-<body class="bg-gray-50">
+<body class="bg-gray-50 flex flex-col min-h-screen">
     <!-- Display success message if set -->
     <?php if(isset($_SESSION['success'])): ?>
     <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 mb-4 mx-4 mt-4 rounded relative" role="alert">
@@ -34,10 +36,45 @@ if($_SESSION['usertype'] == "admin") {
     endif; 
     ?>
 
-    <!-- Rest of the student dashboard content -->
-    <div class="container mx-auto px-4">
-        <h1 class="text-2xl font-bold my-6">Student Dashboard</h1>
-        <!-- Existing student dashboard content goes here -->
+    <!-- Styled Header -->
+    <header class="bg-green-700 text-white shadow-md">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="" class="text-xl font-bold">Student Dashboard</a>
+            <div>
+                <a href="../auth/logout.php" class="hover:bg-green-600 px-4 py-2 rounded transition duration-300 flex items-center">
+                    <i class="fas fa-sign-out-alt mr-2"></i> Logout
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <div class="flex flex-grow">
+        <!-- Sidebar -->
+        <aside class="w-64 bg-green-800 text-white shadow-lg">
+            <nav class="p-4">
+                <ul>
+                    <li class="mb-2">
+                        <a href="my_courses.php" class="block py-2 px-4 rounded hover:bg-green-600 transition duration-300">
+                            <i class="fas fa-book-open mr-2"></i> My Courses
+                        </a>
+                    </li>
+                    <li class="mb-2">
+                        <a href="my_results.php" class="block py-2 px-4 rounded hover:bg-green-600 transition duration-300">
+                            <i class="fas fa-chart-bar mr-2"></i> My Results
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="flex-grow p-6">
+            <h2 class="text-2xl font-semibold mb-6">Welcome to Student Portal</h2>
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <p>You can view your courses and results from the sidebar menu.</p>
+                <p class="mt-2">Current semester: <?php echo isset($_SESSION['semester']) ? $_SESSION['semester'] : 'Spring 2023'; ?></p>
+            </div>
+        </main>
     </div>
     
     <!-- Your existing footer or other closing elements -->

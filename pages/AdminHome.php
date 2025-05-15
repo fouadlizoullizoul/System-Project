@@ -14,8 +14,10 @@ session_start(); // Start session to access stored messages
     <!-- Add Tailwind CSS via CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="../styles/style.css">
+    <!-- Add Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-<body class="bg-gray-50">
+<body class="bg-gray-50 flex flex-col min-h-screen">
     <!-- Display success message if set -->
     <?php if(isset($_SESSION['success'])): ?>
     <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 mb-4 mx-4 mt-4 rounded relative" role="alert">
@@ -34,13 +36,64 @@ session_start(); // Start session to access stored messages
     endif; 
     ?>
 
-    <!-- Rest of the admin dashboard content -->
-    <div class="container mx-auto px-4">
-        <h1 class="text-2xl font-bold my-6">Admin Dashboard</h1>
-        <!-- Existing admin dashboard content goes here -->
+    <!-- Styled Header -->
+    <header class="bg-blue-800 text-white shadow-md">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="" class="text-xl font-bold">Admin Dashboard</a>
+            <div>
+                <a href="../Logout.php" class="hover:bg-blue-700 px-4 py-2 rounded transition duration-300 flex items-center">
+                    <i class="fas fa-sign-out-alt mr-2"></i> Logout
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <div class="flex flex-grow">
+        <!-- Sidebar -->
+        <aside class="w-64 bg-blue-900 text-white shadow-lg">
+            <nav class="p-4">
+                <ul>
+                    <li class="mb-2">
+                        <a href="admission.php" class="block py-2 px-4 rounded hover:bg-blue-700 transition duration-300">
+                            <i class="fas fa-user-plus mr-2"></i> Admission
+                        </a>
+                    </li>
+                    <li class="mb-2">
+                        <a href="add_student.php" class="block py-2 px-4 rounded hover:bg-blue-700 transition duration-300">
+                            <i class="fas fa-user-graduate mr-2"></i> Add Student
+                        </a>
+                    </li>
+                    <li class="mb-2">
+                        <a href="view_student.php" class="block py-2 px-4 rounded hover:bg-blue-700 transition duration-300">
+                            <i class="fas fa-users mr-2"></i> View Student
+                        </a>
+                    </li>
+                    <li class="mb-2">
+                        <a href="add_teacher.php" class="block py-2 px-4 rounded hover:bg-blue-700 transition duration-300">
+                            <i class="fas fa-chalkboard-teacher mr-2"></i> Add Teacher
+                        </a>
+                    </li>
+                    <li class="mb-2">
+                        <a href="add_course.php" class="block py-2 px-4 rounded hover:bg-blue-700 transition duration-300">
+                            <i class="fas fa-book mr-2"></i> Add Course
+                        </a>
+                    </li>
+                    <li class="mb-2">
+                        <a href="view_course.php" class="block py-2 px-4 rounded hover:bg-blue-700 transition duration-300">
+                            <i class="fas fa-list mr-2"></i> View Course
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="flex-grow p-6">
+            <h2 class="text-2xl font-semibold mb-6">Welcome to Admin Panel</h2>
+            <div class="bg-white rounded-lg shadow-md p-6">
+                <p>You can manage students, teachers, and courses from the sidebar menu.</p>
+            </div>
+        </main>
     </div>
-    
-    <!-- Your existing footer or other closing elements -->
-    <a href="../Logout.php">Logout</a>
 </body>
 </html>

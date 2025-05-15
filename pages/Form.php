@@ -1,7 +1,7 @@
 <div class="bg-white p-8 rounded-lg shadow-md max-w-xl mx-auto my-10">
     <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Contact Form</h2>
     
-    <form action="#" method="POST">
+    <form action="data_check.php" method="POST">
         <div class="mb-6">
             <div class="space-y-4">
                 <div>
@@ -31,9 +31,9 @@
         
         <!-- Form Actions -->
         <div class="flex justify-center">
-            <button type="submit" class="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors">
-                Submit
-            </button>
+            <input type="submit" name="apply" id="apply" value="Apply" class="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors">
+                
+            </input>
         </div>
     </form>
 </div>
