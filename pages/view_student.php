@@ -3,17 +3,35 @@ session_start(); // Start session to access stored messages
 if ($_SESSION['usertype'] == "student") {
     header("Location: ../auth/login.php");
     exit();
-};
+}
+;
 $host = "localhost";
 $username = "root";
-$password="";
-$dbname="schoolproject";
-$connect = mysqli_connect($host,$username,$password,$dbname);
+$password = "";
+$dbname = "schoolproject";
+$connect = mysqli_connect($host, $username, $password, $dbname);
 if (!$connect) {
     die("Connection failed: " . mysqli_connect_error());
 }
+
+// Handle delete student operation
+if (isset($_POST['delete_student'])) {
+    $student_id = mysqli_real_escape_string($connect, $_POST['student_id']);
+    $delete_sql = "DELETE FROM user WHERE id = '$student_id' AND usertype = 'student'";
+
+    if (mysqli_query($connect, $delete_sql)) {
+        $_SESSION['message'] = "Student deleted successfully";
+    } else {
+        $_SESSION['message'] = "Error deleting student: " . mysqli_error($connect);
+    }
+
+    // Redirect to refresh the page
+    header("Location: view_student.php");
+    exit();
+}
+
 $sql = "SELECT * FROM user";
-$result = mysqli_query($connect,$sql);
+$result = mysqli_query($connect, $sql);
 
 ?>
 
@@ -52,6 +70,17 @@ $result = mysqli_query($connect,$sql);
         <!-- Main Content Area -->
         <main class="flex-grow p-6">
             <h2 class="text-2xl font-semibold mb-6">Student Data</h2>
+
+            <?php
+            // Display message if there is one
+            if (isset($_SESSION['message'])) {
+                echo "<div class='bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4'>";
+                echo $_SESSION['message'];
+                echo "</div>";
+                unset($_SESSION['message']); // Clear the message
+            }
+            ?>
+
             <div class="overflow-x-auto">
                 <table class="min-w-full bg-white border border-gray-300 shadow-md rounded-lg">
                     <thead class="bg-gray-100">
@@ -60,6 +89,7 @@ $result = mysqli_query($connect,$sql);
                             <th class="py-3 px-4 text-left text-gray-700 font-semibold border-b">Email</th>
                             <th class="py-3 px-4 text-left text-gray-700 font-semibold border-b">Phone</th>
                             <th class="py-3 px-4 text-left text-gray-700 font-semibold border-b">User Type</th>
+                            <th class="py-3 px-4 text-left text-gray-700 font-semibold border-b">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -72,11 +102,25 @@ $result = mysqli_query($connect,$sql);
                                     echo "<td class='py-2 px-4 border-b'>" . $row['email'] . "</td>";
                                     echo "<td class='py-2 px-4 border-b'>" . $row['phone'] . "</td>";
                                     echo "<td class='py-2 px-4 border-b'>" . $row['usertype'] . "</td>";
+                                    echo "<td class='py-2 px-4 border-b flex space-x-2'>";
+                                    // Update button
+                                    echo "<a href='update_student.php?id=" . $row['id'] . "' class='bg-blue-500 hover:bg-blue-600 text-white py-1 px-3 rounded text-sm'>";
+                                    echo "<i class='fas fa-edit mr-1'></i> Update";
+                                    echo "</a>";
+
+                                    // Delete button (existing)
+                                    echo "<form method='POST' onsubmit='return confirm(\"Are you sure you want to delete this student?\")'>";
+                                    echo "<input type='hidden' name='student_id' value='" . $row['id'] . "'>";
+                                    echo "<button type='submit' name='delete_student' class='bg-red-500 hover:bg-red-600 text-white py-1 px-3 rounded text-sm'>";
+                                    echo "<i class='fas fa-trash-alt mr-1'></i> Delete";
+                                    echo "</button>";
+                                    echo "</form>";
+                                    echo "</td>";
                                     echo "</tr>";
                                 }
                             }
                         } else {
-                            echo "<tr><td colspan='4' class='py-4 px-4 text-center text-gray-500'>No students found</td></tr>";
+                            echo "<tr><td colspan='5' class='py-4 px-4 text-center text-gray-500'>No students found</td></tr>";
                         }
                         ?>
                     </tbody>
